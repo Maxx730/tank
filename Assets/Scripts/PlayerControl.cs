@@ -10,7 +10,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject LoadedAmmo;
 
     private Rigidbody Body;
-    private GameObject Turret, ProjectileSpawn;
+    private GameObject Turret, ProjectileSpawn, ShotParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
         Body = transform.GetComponent<Rigidbody>();
         Turret = GameObject.Find("PlayerTurret");
         ProjectileSpawn = GameObject.Find("ProjectileSpawnPoint");
+        ShotParticle = GameObject.Find("TurretShot");
     }
 
     // Update is called once per frame
@@ -72,6 +73,7 @@ public class PlayerControl : MonoBehaviour
             //a large force to it.
             if (Input.GetMouseButtonDown(0))
             {
+                ShotParticle.GetComponent<ParticleSystem>().Play();
                 GameObject bullet = Instantiate(LoadedAmmo, ProjectileSpawn.transform.position, Turret.transform.rotation);
                 bullet.GetComponent<Rigidbody>().AddForce(Turret.transform.forward * 1320);
             }
